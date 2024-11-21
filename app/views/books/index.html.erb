@@ -1,0 +1,31 @@
+<div class="container books-index">
+  <h1>Books Collection</h1>
+
+  <%= search_form_for @q do |f| %>
+    <div class="search-form">
+      <%= f.label :title_or_author_cont, "Search Books" %>
+      <%= f.search_field :title_or_author_cont, placeholder: "Enter title or author" %>
+      <%= f.submit "Search", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <%= link_to "Add New Book", new_book_path, class: "btn btn-success" %>
+  <% if user_signed_in? %>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-success" %>
+  <% end %>
+
+  
+
+  <div class="books-grid">
+    <% @books.each do |book| %>
+      <div class="book-card">
+        <h2><%= link_to book.title, book_path(book) %></h2>
+        <p>Author: <%= book.author %></p>
+        <p>Publication Year: <%= book.publication_year %></p>
+        <p>Average Rating: <%= book.average_rating&.round(1) || "No reviews" %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <%= paginate @books %>
+</div>

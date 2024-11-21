@@ -1,0 +1,45 @@
+<div class="container book-details">
+  <h1><%= @book.title %></h1>
+  <% if user_signed_in? %>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-success" %>
+  <% end %>
+  
+  <div class="book-info">
+    <p><strong>Author:</strong> <%= @book.author %></p>
+    <p><strong>Publication Year:</strong> <%= @book.publication_year %></p>
+    <p><strong>ISBN:</strong> <%= @book.isbn %></p>
+    <p><strong>Average Rating:</strong> <%= @book.average_rating&.round(1) || "No reviews" %></p>
+  </div>
+
+  <% if user_signed_in? && !@book.reviewed_by?(current_user) %>
+    <%= link_to "Write a Review", new_book_review_path(@book), class: "btn btn-primary" %>
+  <% end %>
+
+  <div class="book-reviews">
+    <h2>Reviews (<%= @reviews.count %>)</h2>
+    
+    <% if @reviews.any? %>
+      <% @reviews.each do |review| %>
+        <div class="review-card">
+          <p><strong>Rating:</strong> <%= "★" * review.rating %></p>
+          <p><%= review.content %></p>
+          <p>
+            <small>
+              By <%= review.user.email %> 
+              on <%= review.created_at.strftime("%B %d, %Y") %>
+            </small>
+          </p>
+          
+          <% if user_signed_in? && current_user == review.user %>
+            <div class="review-actions">
+              <%= link_to "Edit", edit_book_review_path(@book, review), class: "btn btn-sm btn-warning" %>
+              <%= button_to "Delete", book_review_path(@book, review), method: :delete, data: { confirm: "Are you sure?", turbo: false }, class: "btn btn-sm btn-danger" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No reviews yet. Be the first to review!</p>
+    <% end %>
+  </div>
+</div>
