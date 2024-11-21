@@ -28,15 +28,15 @@ class BooksController < ApplicationController
     if @book.publication_year.to_i < 1800 || @book.publication_year.to_i > Time.current.year
       @book.errors.add(:publication_year, "must be between 1800 and current year")
     end
-  
+
     # ISBN format validation
     unless @book.isbn.match?(/^\d{10}$/)   #  use this regex expression i.e. (/^(?:\d{10}|\d{13})$/) to use correct ISBN in future
       @book.errors.add(:isbn, "must be a valid 10 or 13 digit ISBN")
     end
-    
+
     if @book.save
       flash[:success] = "Book '#{@book.title}' was successfully created."
-      redirect_to @book, notice: 'Book was successfully created.'
+      redirect_to @book, notice: "Book was successfully created."
     else
       flash[:error] = "Unable to create book. #{@book.errors.full_messages.join(', ')}."
       redirect_to new_book_path
@@ -61,10 +61,10 @@ class BooksController < ApplicationController
 
   def book_params
     params.require(:book).permit(
-      :title, 
-      :author, 
-      :publication_year, 
-      :isbn
+    :title,
+    :author,
+    :publication_year,
+    :isbn
     )
   end
 end

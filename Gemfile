@@ -27,7 +27,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
-gem 'faker'
+gem "faker"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -58,13 +58,13 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails'
+  gem "rspec-rails"
 end
 
 group :development, :test do
-  gem 'factory_bot_rails'
-  gem 'shoulda-matchers'
-  gem 'rails-controller-testing'
+  gem "factory_bot_rails"
+  gem "shoulda-matchers"
+  gem "rails-controller-testing"
 end
 
 group :test do
