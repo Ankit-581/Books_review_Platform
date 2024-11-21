@@ -94,9 +94,9 @@ RSpec.describe Review, type: :model do
     it 'is invalid if the user has already reviewed the same book' do
       user = User.create!(email: 'user1@example.com',  password: "password")
       book = Book.create!(title: 'Sample Book', author: 'Author', publication_year: 2020, isbn: "978-3-16-148410-0")
-      
+
       Review.create!(user: user, book: book, rating: 5, content: 'Great book!')
-      
+
       duplicate_review = Review.new(user: user, book: book, rating: 4, content: 'Good book!')
       expect(duplicate_review).not_to be_valid
       expect(duplicate_review.errors[:user_id]).to include('has already reviewed this book')
@@ -108,7 +108,7 @@ RSpec.describe Review, type: :model do
     it 'calls update_book_average_rating after save' do
       book = Book.create!(title: 'Sample Book', author: 'Author', publication_year: 2020, isbn: "978-3-16-148410-0")
       user = User.create!(email: 'user1@example.com',  password: "password")
-      
+
       # Ensure the update_average_rating method is called
       expect(book).to receive(:update_average_rating)
 
@@ -118,9 +118,9 @@ RSpec.describe Review, type: :model do
     it 'calls update_book_average_rating after destroy' do
       book = Book.create!(title: 'Sample Book', author: 'Author', publication_year: 2020, isbn: "978-3-16-148410-0")
       user = User.create!(email: 'user1@example.com',  password: "password")
-      
+
       review = Review.create!(user: user, book: book, rating: 5, content: 'Great book!')
-      
+
       # Ensure the update_average_rating method is called when the review is destroyed
       expect(book).to receive(:update_average_rating)
 
@@ -128,5 +128,3 @@ RSpec.describe Review, type: :model do
     end
   end
 end
-
-

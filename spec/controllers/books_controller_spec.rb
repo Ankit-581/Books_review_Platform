@@ -4,8 +4,8 @@ RSpec.describe BooksController, type: :controller do
   # Sample user creation method
   def create_sample_user
     User.create!(
-      email: "test_user_#{rand(1000)}@example.com", 
-      password: 'password123', 
+      email: "test_user_#{rand(1000)}@example.com",
+      password: 'password123',
       password_confirmation: 'password123'
     )
   end
@@ -13,9 +13,9 @@ RSpec.describe BooksController, type: :controller do
   # Sample book creation method
   def create_sample_book(attributes = {})
     Book.create!({
-      title: "Test Book #{rand(1000)}", 
-      author: "Test Author", 
-      publication_year: 2023, 
+      title: "Test Book #{rand(1000)}",
+      author: "Test Author",
+      publication_year: 2023,
       isbn: "123456789#{rand(10)}"
     }.merge(attributes))
   end
@@ -62,13 +62,13 @@ RSpec.describe BooksController, type: :controller do
     it "loads book reviews" do
       3.times do
         Review.create!(
-          book: book, 
+          book: book,
           user: user,
           rating: 3,  # Provide a valid numeric rating
           content: "Test review #{rand(1000)}"
         )
       end
-      
+
       get :show, params: { id: book.id }
       expect(assigns(:reviews).size).to eq(3)
     end
@@ -90,9 +90,9 @@ RSpec.describe BooksController, type: :controller do
   describe "POST #create" do
     let(:valid_book_params) do
       {
-        title: "New Book", 
-        author: "New Author", 
-        publication_year: 2023, 
+        title: "New Book",
+        author: "New Author",
+        publication_year: 2023,
         isbn: "1234567890"
       }
     end

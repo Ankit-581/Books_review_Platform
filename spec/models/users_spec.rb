@@ -69,7 +69,7 @@ RSpec.describe User, type: :model do
     it 'returns books the user has reviewed' do
       review1 = Review.create!(user: user, book: book1, rating: 5, content: 'Great book!')
       review2 = Review.create!(user: user, book: book2, rating: 4, content: 'Good book!')
-      
+
       expect(user.reviewed_books).to include(book1, book2)
     end
 

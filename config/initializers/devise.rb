@@ -9,7 +9,6 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-
   config.scoped_views = true # Allow different views for different models
   config.authentication_keys = [:email] # Use email for authentication (default)
   # The secret key used by Devise. Devise uses this key to generate
@@ -313,5 +312,4 @@ Devise.setup do |config|
   # When set to false, does not sign a user in automatically after their password is
   # changed. Defaults to true, so a user is signed in automatically after changing a password.
   # config.sign_in_after_change_password = true
-  
 end
